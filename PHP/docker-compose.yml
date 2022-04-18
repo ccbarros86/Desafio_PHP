@@ -1,0 +1,37 @@
+services:
+        
+    database:
+        image: mysql:latest
+        container_name: app-mysql
+        ports:
+            - "3306:3306"
+        volumes:
+            - /var/mysql
+            - ./configsql:/docker-entrypoint-initdb.d
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=app_db
+            - MYSQL_USER=admin
+            - MYSQL_PASSWORD=admin
+
+    php:
+        stdin_open: true
+        tty: true
+        image: php:latest
+        container_name: app-php
+        volumes: 
+            - C:\Users\Carlos Barros\Desktop\PHP\Desafio_PHP:/Desafio_PHP
+        links:
+            - database:database
+
+    app:
+        stdin_open: true
+        tty: true
+        image: phpmyadmin/phpmyadmin:latest
+        container_name: app-phpmyadmin
+        links:
+            - database:database
+        ports:
+            - 80:80
+        environment:
+            - PMA_ARBITRARY=1

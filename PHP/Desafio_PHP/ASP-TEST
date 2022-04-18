@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/src/Command/ConnectDatabase.php';
+
+use Symfony\Component\Console\Application;
+
+$app = new Application();
+
+$app->add(new \ASPTest\Command\CreateUsrCommand());
+$app->add(new \ASPTest\Command\CreateUsrPwdCommand());
+
+$app->add(new \ASPTest\Command\CreateUsrCommandTest());
+$app->add(new \ASPTest\Command\CreateUsrPwdCommandTest());
+
+$app->run();
